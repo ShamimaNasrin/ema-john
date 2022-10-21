@@ -5,7 +5,7 @@ import logo from '../../images/Logo.svg';
 import './Header.css';
 
 const Header = () => {
-    const {user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
     return (
         <nav className='header'>
