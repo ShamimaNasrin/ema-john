@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/UserContext';
 import './Login.css';
 
@@ -7,9 +7,13 @@ const Login = () => {
     const { signIn } = useContext(AuthContext);
 
     const navigate = useNavigate();
+    //to get the current location route
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -21,7 +25,7 @@ const Login = () => {
                 const user = result.user;
                 console.log('oldUser', user);
                 form.reset();
-                navigate('/');
+                navigate(from, { replace: true })//to forget the login page history
             })
             .catch(error => console.error('error', error))
     }
