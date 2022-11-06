@@ -6,8 +6,13 @@ import Product from '../Product/Product';
 import './Shop.css';
 
 const Shop = () => {
-    const products = useLoaderData();
+    const { products, count } = useLoaderData();
     const [cart, setCart] = useState([]);
+    // const perPage = 10;
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10); //per page data 
+
+    const pages = Math.ceil(count / size);//how many pages needed
 
     const clearCart = () => {
         setCart([]);
@@ -63,6 +68,17 @@ const Shop = () => {
                         <button>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+            <div className="pagination">
+                <p>current page: {page}</p>
+                {
+                    [...Array(pages).keys()].map(number => <button
+                        key={number}
+                        className={page === number && 'selected'}
+                        onClick={() => setPage(number)}>
+                        {number}
+                    </button>)
+                }
             </div>
         </div>
     );
